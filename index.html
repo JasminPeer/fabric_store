@@ -138,7 +138,7 @@ section{position:relative;z-index:1}
 .fabric-card:hover .fc-img img{transform:scale(1.06)}
 .fc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,20,16,.55) 0%,transparent 50%)}
 .fc-gsm-tag{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid var(--border);padding:4px 12px;border-radius:100px;font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.08em;box-shadow:0 2px 8px rgba(60,40,10,.1);}
-.fc-body{padding:22px 24px 26px}
+.fc-body{padding:22px 24px 26px;margin-top:12px}
 .fc-color-dots{display:flex;gap:7px;margin-bottom:12px}
 .fc-dot{width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);box-shadow:0 2px 6px rgba(0,0,0,.15);transition:transform .2s;cursor:pointer}
 .fc-dot:hover{transform:scale(1.4)}
@@ -226,12 +226,12 @@ footer{background:var(--dark);padding:60px 5% 32px;text-align:center;border-top:
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(26,20,16,.85);backdrop-filter:blur(16px);display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.open{display:flex}
-.modal-box{background:var(--white);border:1px solid var(--border);border-radius:28px;max-width:820px;width:100%;overflow:hidden;box-shadow:0 60px 120px rgba(60,40,10,.3);display:grid;grid-template-rows:auto 1fr;max-height:90vh;overflow-y:auto;}
-.modal-img{width:100%;aspect-ratio:820/280;position:relative;overflow:hidden;background:var(--cream2)}
+.modal-box{background:var(--white);border:1px solid var(--border);border-radius:28px;max-width:820px;width:100%;overflow:hidden;box-shadow:0 60px 120px rgba(60,40,10,.3);display:grid;grid-template-rows:auto 1fr;gap:20px;max-height:95vh;overflow-y:auto;}
+.modal-img{width:100%;aspect-ratio:820/100;position:relative;overflow:hidden;background:var(--cream2)}
 .modal-img img{width:100%;height:100%;object-fit:cover;display:block}
 .modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.9);border:1px solid var(--border);color:var(--dark);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;z-index:10;box-shadow:0 2px 8px rgba(60,40,10,.12);}
 .modal-close:hover{background:var(--cream)}
-.modal-content{padding:36px 40px}
+.modal-content{padding:24px 40px;margin-top:0}
 .modal-lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:600}
 .modal-title{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:var(--dark);margin-bottom:14px;}
 .modal-desc{font-size:15px;line-height:1.75;color:var(--muted);margin-bottom:26px;font-weight:300}
@@ -240,6 +240,12 @@ footer{background:var(--dark);padding:60px 5% 32px;text-align:center;border-top:
 .spec-l{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-weight:500}
 .spec-v{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .modal-uses h4{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:600}
+.color-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:12px;margin-bottom:20px;max-height:300px;overflow-y:auto;padding-right:8px}
+.color-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px;background:var(--cream2);border-radius:var(--r);transition:transform .2s,box-shadow .2s;cursor:pointer}
+.color-item:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(60,40,10,.12)}
+.color-swatch{width:40px;height:40px;border-radius:50%;border:2px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.15);transition:transform .2s}
+.color-item:hover .color-swatch{transform:scale(1.1)}
+.color-label{font-size:11px;font-weight:600;text-align:center;color:var(--dark);line-height:1.3}
 .use-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
 .use-tag{padding:6px 16px;border-radius:100px;background:var(--cream);border:1px solid var(--border2);font-size:12.5px;font-weight:500;color:var(--text)}
 .modal-enquire{display:inline-flex;align-items:center;gap:8px;padding:14px 34px;border-radius:100px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--white);border:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 30px rgba(184,151,42,.4);transition:transform .25s,box-shadow .25s;}
@@ -535,20 +541,20 @@ footer{background:var(--dark);padding:60px 5% 32px;text-align:center;border-top:
           <div class="fg form-row">
             <div>
               <label class="fl">Fabric Type *</label>
-              <select class="fsel" id="f_fabric">
+              <select class="fsel" id="f_fabric" onchange="updateGSMOptions();updateFabricColors()">
                 <option value="">Select fabric...</option>
-                <option>Single Jersey</option>
-                <option>Loopknit (Unraised)</option>
-                <option>Loopknit (Raised / Fleece)</option>
-                <option>Airtex / Piqué</option>
-                <option>Interlock</option>
-                <option>Lycra Fine / Jersey</option>
-                <option>Other (specify in message)</option>
+                <option value="single-jersey">Single Jersey</option>
+                <option value="loopknit-unraised">Loopknit (Unraised)</option>
+                <option value="loopknit-raised">Loopknit (Raised / Fleece)</option>
+                <option value="airtex">Airtex / Piqué</option>
+                <option value="interlock">Interlock</option>
+                <option value="lycra-jersey">Lycra Fine / Jersey</option>
+                <option value="other">Other (specify in message)</option>
               </select>
             </div>
             <div>
               <label class="fl">GSM Needed</label>
-              <select class="fsel" id="f_gsm">
+              <select class="fsel" id="f_gsm" onchange="updateFabricColors()">
                 <option value="">Select GSM...</option>
                 <option>160 GSM</option><option>180 GSM</option><option>200 GSM</option>
                 <option>220 GSM</option><option>240 GSM</option><option>260 GSM</option>
@@ -557,7 +563,11 @@ footer{background:var(--dark);padding:60px 5% 32px;text-align:center;border-top:
               </select>
             </div>
           </div>
-          <div class="fg"><label class="fl">Quantity & Colour Requirements</label><textarea class="fta" id="f_msg" placeholder="E.g. 500 kg Single Jersey, 180 GSM, Navy Blue & Black..."></textarea></div>
+          <div class="fg">
+            <label class="fl">Preferred Colours</label>
+            <div id="colorSelector" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:10px;padding:12px;background:var(--cream2);border-radius:var(--r);min-height:120px;max-height:250px;overflow-y:auto;"></div>
+          </div>
+          <div class="fg"><label class="fl">Quantity & Other Requirements</label><textarea class="fta" id="f_msg" placeholder="E.g. 500 kg, quantity, special finishes..."></textarea></div>
           <button class="fsub" onclick="submitFabricEnquiry(this)">Submit Fabric Enquiry →</button>
         </div>
       </div>
@@ -619,28 +629,46 @@ const fabrics = [
   {
     id:'jersey', name:'Single Jersey', gsm:'160 – 210 GSM',
     uses:['T-Shirts','Inner Wear','Casual Wear'],
-    colors:['green','blue','red','brown','grey','gold'],
-    colorHex:['#1a7a4a','#2d5a8e','#8b1a1a','#6b4226','#888','#c4922a'],
+    colors:[{no:1,name:'Mustard'},{no:2,name:'Pt. Blue'},{no:3,name:'Lt Green'},{no:4,name:'Meroon'},{no:5,name:'Lt Purple'},{no:6,name:'Brown'},{no:7,name:'Lt Saffron'},{no:8,name:'Navy'},{no:9,name:'Lt Blue (Green)'},{no:10,name:'Lt Red'},{no:11,name:'Lavendar'},{no:12,name:'Golden Brown'},{no:13,name:'Black'},{no:14,name:'Cream'},{no:15,name:'White'},{no:16,name:'Red'},{no:17,name:'Dusty Rose'},{no:18,name:'Silver'},{no:19,name:'Dark Green'},{no:20,name:'Cidal'},{no:21,name:'Rust'},{no:22,name:'Olive Green'},{no:23,name:'Duffle Beg'},{no:24,name:'Major Brown'},{no:25,name:'Dried Moss'},{no:26,name:'Wild Ginger'},{no:27,name:'Air Blue'},{no:28,name:'Opal Grey'},{no:29,name:'Lt Pink'},{no:30,name:'Off White'},{no:31,name:'Purple'},{no:32,name:'Green Glow'},{no:33,name:'Lilac'},{no:34,name:'Lemon Yellow'},{no:35,name:'Royal Blue'},{no:36,name:'Dusk'},{no:37,name:'Sky Blue'},{no:38,name:'Violet'},{no:39,name:'Beige'},{no:40,name:'Pakistan Green'},{no:41,name:'Lt. Lavander'},{no:42,name:'Steel Grey'},{no:43,name:'Neon Green'},{no:44,name:'Grey Melange'},{no:45,name:'Ch. Melange'},{no:46,name:'Dark Petrol'},{no:47,name:'Flame'},{no:48,name:'Red Meroon'},{no:49,name:'Deep Green'},{no:50,name:'Seaform Blue'},{no:51,name:'Mulberry'},{no:55,name:'Chocolate'},{no:56,name:'Lt. Grey'}],
+    colorHex:['#d4a52a','#2d5a8e','#90c695','#8b4654','#c8a2d0','#6b4226','#f0b366','#1a3a5a','#7ab8d4','#e8a0a8','#b19cd9','#8b6f47','#1a1a1a','#f5ede4','#ffffff','#d32f2f','#d9a5a5','#c0c0c0','#1a5a2a','#4a7c7c','#a0522d','#556b2f','#a0826d','#6b4423','#555d3f','#d2691e','#5f9ea0','#909090','#ffb6c1','#faf0e6','#800080','#39ff14','#c8a2e0','#ffff00','#4169e1','#696969','#87ceeb','#8b00ff','#f5f5dc','#2d5016','#b19cd9','#708090','#39ff14','#a9a9a9','#a9a9a9','#2d6b4f','#ff6347','#8b1a1a','#004d4d','#5d3a9b','#333333','#d2b48c'],
     material:'100% Cotton (Biowash)', finish:'Soft Flow / Biowash',
     desc:'Single jersey is the most versatile knit fabric — lightweight, soft, and breathable. Smooth face ideal for printed and plain T-shirts. Available in bio-wash soft flow finish for superior hand feel.',
     img: IMG_SJ
   },
   {
-    id:'loopknit', name:'Loopknit', gsm:'240, 300, 330 GSM',
-    uses:['Hoodies','Sweatshirts','Fleece Jackets'],
-    colors:['brown','green','blue','purple','red','gold'],
-    colorHex:['#6b3a2a','#1a7a4a','#2d5a8e','#4a2060','#8b1a1a','#c4922a'],
+    id:'loopknit-unraised', name:'Loopknit (Unraised)', gsm:'240–260 GSM',
+    uses:['Hoodies','Sweatshirts','Casual Wear'],
+    colors:[{no:1,name:'Mustard'},{no:2,name:'Petrol Blue'},{no:3,name:'Moss Green'},{no:4,name:'Red'},{no:5,name:'Meroon'},{no:6,name:'Lt Grey'},{no:7,name:'Navy'},{no:8,name:'Blue Surf'},{no:9,name:'St. Blue'},{no:10,name:'Olive Green'},{no:11,name:'White'},{no:12,name:'Dk Musturd'},{no:13,name:'Black'},{no:14,name:'Plum'},{no:15,name:'Ap. Green'},{no:16,name:'Ch. Melange'},{no:17,name:'Lt. Orange'},{no:18,name:'G. Melange'},{no:19,name:'Brick'},{no:20,name:'Lt. Purple'},{no:21,name:'Bot. Green'},{no:22,name:'Lt. Brown'},{no:23,name:'Aqua Green'},{no:24,name:'Caramel'},{no:25,name:'Denim Grey'},{no:26,name:'Cement Grey'},{no:27,name:'Cherry'},{no:28,name:'Steel Grey'},{no:29,name:'Nilac'},{no:30,name:'D. Green'},{no:31,name:'Lt Pink'},{no:32,name:'Burgandy'},{no:33,name:'Dark Orange'},{no:34,name:'Purple'},{no:35,name:'Odessey Grey'},{no:36,name:'Lavender'},{no:37,name:'Sea Green'},{no:38,name:'Dark Meroon'},{no:39,name:'Green Yellow'},{no:40,name:'Grape Wine'},{no:41,name:'Dark Dusk'},{no:42,name:'Ocean Blue'},{no:43,name:'Jet Set Green'},{no:44,name:'Dark Lavender'},{no:45,name:'Teel Blue'},{no:46,name:'Green Glow'},{no:47,name:'Cream'},{no:48,name:'Rayal Navy'},{no:49,name:'Camel Brown'},{no:50,name:'Blue Moon'},{no:51,name:'Brown'},{no:52,name:'Sky Blue'},{no:53,name:'Vista Blue'},{no:54,name:'Off White'},{no:55,name:'Denim Blue'},{no:56,name:'Deep Green'},{no:57,name:'Winter Green'},{no:58,name:'Royal Blue'},{no:59,name:'Baby Pink'},{no:60,name:'Violet'},{no:61,name:'Air Blue'},{no:62,name:'Orange'},{no:63,name:'Beige'},{no:64,name:'Dark Grey'},{no:65,name:'Pine Green'},{no:66,name:'Liver'},{no:67,name:'Sand Stone'},{no:68,name:'Royal Meroon'},{no:69,name:'Opal Grey'},{no:70,name:'Lt. Olive'},{no:71,name:'Royal Purple'},{no:72,name:'Lt. Blue'},{no:73,name:'Skin'},{no:74,name:'Pak. Green'},{no:75,name:'Neon Green'},{no:76,name:'Yale'},{no:77,name:'Ash Brown'},{no:78,name:'Leaf Green'},{no:79,name:'Medium Grey'},{no:80,name:'Me. Lavender'},{no:81,name:'Army'},{no:82,name:'Terra Cotta'},{no:83,name:'Mint'},{no:84,name:'Antique Bross'},{no:85,name:'H.M. Grey'},{no:86,name:'Chocolate'},{no:87,name:'Mango Yellow'},{no:88,name:'Flo. Orange'},{no:89,name:'Flo. Green'},{no:90,name:'Flame'},{no:91,name:'Grey Purple'},{no:92,name:'Water Z'},{no:93,name:'Lemon Yellow'},{no:94,name:'Mehandhi'},{no:95,name:'Canary Yellow'},{no:96,name:'John Pink'},{no:97,name:'Tomato Red'},{no:98,name:'Turkoise Blue'},{no:99,name:'Khakki'},{no:100,name:'Fossil Grey'},{no:101,name:'Military'},{no:102,name:'Seafoam Green'}],
+    colorHex:['#d4a52a','#2d5a8e','#556b2f','#d32f2f','#8b1a1a','#d3d3d3','#001a4d','#0099cc','#0052cc','#556b2f','#ffffff','#b8860b','#1a1a1a','#4a0080','#2d5a2d','#a9a9a9','#ffb366','#a9a9a9','#8b4513','#e6b3ff','#004d4d','#a0826d','#00e6b8','#c8956a','#4a5a7a','#a0a0a0','#dc143c','#708090','#6b5b95','#004d33','#ffb6c1','#800020','#ff8c00','#800080','#6b7280','#e6d7ff','#2e8b57','#8b0000','#9acd32','#722f37','#4a4a5a','#006666','#2d6b4f','#003d33','#7d6b7d','#0099cc','#39ff14','#fff8dc','#001a4d','#6b4423','#0066cc','#6b4423','#87ceeb','#004d7a','#f5f5f5','#00008b','#1a5a5a','#2d5a4d','#708090','#808080','#3d5a3d','#4d4d2d','#800000','#8b4513','#a9a9a9','#556b2f','#4a0080','#add8e6','#ffc0cb','#00cc99','#39ff14','#00008b','#8b4513','#808000','#228b22','#6b8080','#b19cd9','#008000','#ff6347','#ffa500','#ffb3ba','#ccccff','#ffffcc','#ffccff','#ffcccc','#ffd9cc','#cc99ff','#99ff99','#ccffcc','#99ffff','#ffccff','#ffff99','#ccffcc','#ffccff','#ffcccc','#ccffff','#cc99ff'],
     material:'100% Cotton', finish:'Soft Flow / Brushed',
-    desc:'Loop-knit fabric features a looped pile on the inner surface for exceptional warmth and softness. Available in unraised (240 GSM) and raised (300/330 GSM) for premium hoodies and sweatshirts.',
+    desc:'Loop-knit fabric features a looped pile on the inner surface for exceptional warmth and softness. Available in unraised (240-260 GSM) with premium comfort.',
     img: IMG_LK
   },
   {
-    id:'airtex', name:'Airtex / Piqué', gsm:'220, 240, 280 GSM',
+    id:'airtex-220', name:'Airtex / Piqué', gsm:'220 GSM',
     uses:['Polo T-Shirts','Sports Wear','Casual Tops'],
-    colors:['blue','green','red','brown','grey','gold'],
-    colorHex:['#2d5a8e','#1a7a4a','#8b1a1a','#6b4226','#888','#b8972a'],
+    colors:[{no:1,name:'Mustard'},{no:2,name:'Pt. Blue'},{no:3,name:'Green Glow'},{no:4,name:'Red'},{no:5,name:'Navy'},{no:6,name:'Ocean Blue'},{no:7,name:'Meroon'},{no:8,name:'Le. Yellow'},{no:9,name:'Lt Orange'},{no:10,name:'Brick'},{no:11,name:'St. Blue'},{no:12,name:'Mint Green'},{no:13,name:'Black'},{no:14,name:'Plum'},{no:15,name:'White'},{no:16,name:'C. Melange'},{no:17,name:'G. Melange'},{no:18,name:'Royal Blue'},{no:19,name:'Khakki'}],
+    colorHex:['#d4a52a','#2d5a8e','#39ff14','#d32f2f','#001a4d','#006666','#8b1a1a','#ffff00','#ffb366','#8b4513','#0052cc','#98ff98','#1a1a1a','#4a0080','#ffffff','#a9a9a9','#a9a9a9','#4169e1','#f0e68c'],
     material:'100% Cotton / Polycotton', finish:'Soft Flow',
-    desc:'Airtex is a breathable mesh-knit fabric engineered for maximum air circulation. Piqué weave structure offers durability and premium texture — ideal for polo shirts and activewear.',
+    desc:'Airtex is a breathable mesh-knit fabric engineered for maximum air circulation. Piqué weave structure offers durability and premium texture.',
+    img: IMG_AT
+  },
+  {
+    id:'airtex-240', name:'Airtex / Piqué', gsm:'240 GSM',
+    uses:['Polo T-Shirts','Sports Wear','Casual Tops'],
+    colors:[{no:25,name:'Mustard'},{no:26,name:'Teal Blue'},{no:27,name:'Meroon'},{no:28,name:'Indigo Blue'},{no:29,name:'Red'},{no:30,name:'Olive Green'},{no:31,name:'Plum'},{no:32,name:'Navy'},{no:33,name:'Lt Green'},{no:34,name:'Black'},{no:35,name:'White'},{no:36,name:'G. Melange'},{no:37,name:'C. Melange'},{no:38,name:'Lt. Pink'},{no:39,name:'Denim Green'},{no:40,name:'D. Orange'},{no:41,name:'Purple'},{no:42,name:'Blue Grey'},{no:43,name:'Lt. Grey'},{no:44,name:'St. Blue'},{no:45,name:'Blue Heaven'},{no:46,name:'Le. Yellow'},{no:47,name:'Khakki'},{no:48,name:'Beige'}],
+    colorHex:['#d4a52a','#008080','#8b1a1a','#4b0082','#d32f2f','#556b2f','#4a0080','#001a4d','#90ee90','#1a1a1a','#ffffff','#a9a9a9','#a9a9a9','#ffb6c1','#3a7d44','#ff8c00','#800080','#6b8e99','#d3d3d3','#0052cc','#87ceeb','#ffff00','#f0e68c','#f5f5dc'],
+    material:'100% Cotton / Polycotton', finish:'Soft Flow',
+    desc:'Airtex is a breathable mesh-knit fabric engineered for maximum air circulation. Piqué weave structure offers durability and premium texture.',
+    img: IMG_AT
+  },
+  {
+    id:'airtex-280', name:'Airtex / Piqué', gsm:'280 GSM',
+    uses:['Polo T-Shirts','Sports Wear','Casual Tops'],
+    colors:[{no:49,name:'Brick'},{no:50,name:'Teal Blue'},{no:51,name:'C Grey'},{no:52,name:'Meroon'},{no:53,name:'Black'},{no:54,name:'White'},{no:55,name:'Navy'},{no:56,name:'Plum'},{no:57,name:'Steal Blue'},{no:58,name:'Bottle Green'},{no:59,name:'Green Glow'},{no:60,name:'Red'}],
+    colorHex:['#8b4513','#008080','#c0c0c0','#8b1a1a','#1a1a1a','#ffffff','#001a4d','#4a0080','#0052cc','#004d4d','#39ff14','#d32f2f'],
+    material:'100% Cotton / Polycotton', finish:'Soft Flow',
+    desc:'Airtex is a breathable mesh-knit fabric engineered for maximum air circulation. Piqué weave structure offers durability and premium texture.',
     img: IMG_AT
   },
   {
@@ -672,9 +700,10 @@ const availableFabrics = [
   {name:'Loopknit Raised',gsm:'300 GSM',detail:'Brushed Inner · Fleece'},
   {name:'Loopknit Raised',gsm:'330 GSM',detail:'Heavy Brushed · Winter Wear'},
   {name:'Single Jersey',gsm:'160–210 GSM',detail:'Soft Flow · Bio-wash · T-Shirts'},
+  {name:'Single Jersey',gsm:'240 GSM',detail:'Soft Flow · Bio-wash · T-Shirts'},
+  {name:'Single Jersey',gsm:'280 GSM',detail:'Heavy Weight · Durable'},
   {name:'Pique Polycotton',gsm:'260 GSM',detail:'Premium Polo · Textured'},
   {name:'Interlock',gsm:'330 GSM',detail:'Double-faced · Thick Winter Wear'},
-  {name:'Lycra Fine',gsm:'180–220 GSM',detail:'Stretch Leggings · Activewear'},
 ];
 
 function renderFabricGrid(filter=null) {
@@ -731,6 +760,11 @@ function openModal(id) {
   document.getElementById('modalImg').innerHTML = `
     <button class="modal-close" onclick="closeModal()">✕</button>
     <img src="${f.img}" alt="${f.name}" style="width:100%;height:100%;object-fit:cover;display:block">`;
+  
+  const colorGrid = Array.isArray(f.colors) && f.colors.length > 0 && typeof f.colors[0] === 'object'
+    ? `<div style="margin-bottom:20px"><h4 style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:600">Available Colours</h4><div class="color-grid">${f.colors.map((c,i)=>`<div class="color-item" title="${c.no} - ${c.name}"><div class="color-swatch" style="background:${f.colorHex[i]}"></div><div class="color-label">${c.no}<br>${c.name}</div></div>`).join('')}</div></div>`
+    : `<div style="display:flex;gap:8px;margin-bottom:20px">${f.colorHex.map(c=>`<div style="width:20px;height:20px;border-radius:50%;background:${c};box-shadow:0 2px 8px rgba(0,0,0,.2)"></div>`).join('')}</div>`;
+  
   document.getElementById('modalContent').innerHTML = `
     <div class="modal-lbl">${f.material}</div>
     <div class="modal-title">${f.name}</div>
@@ -738,14 +772,14 @@ function openModal(id) {
     <div class="modal-specs">
       <div class="spec-cell"><div class="spec-l">GSM Range</div><div class="spec-v">${f.gsm}</div></div>
       <div class="spec-cell"><div class="spec-l">Finish</div><div class="spec-v">${f.finish}</div></div>
-      <div class="spec-cell"><div class="spec-l">Colours</div><div class="spec-v">100+</div></div>
+      <div class="spec-cell"><div class="spec-l">Colours</div><div class="spec-v">${f.colors.length}+</div></div>
     </div>
     <div class="modal-uses"><h4>Ideal For</h4>
       <div class="use-tags">${f.uses.map(u=>`<div class="use-tag">${u}</div>`).join('')}</div>
     </div>
+    ${colorGrid}
     <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
       <button class="modal-enquire" onclick="closeModal();document.getElementById('enquiry').scrollIntoView({behavior:'smooth'})">Enquire About This Fabric →</button>
-      <div style="display:flex;gap:8px">${f.colorHex.map(c=>`<div style="width:20px;height:20px;border-radius:50%;background:${c};box-shadow:0 2px 8px rgba(0,0,0,.2)"></div>`).join('')}</div>
     </div>`;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -778,6 +812,94 @@ function switchTab(tab) {
   document.querySelectorAll('.etab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='fabric')||(i===1&&tab==='employee')));
   document.querySelectorAll('.enquiry-form').forEach(f => f.classList.remove('active'));
   document.getElementById(`form-${tab}`).classList.add('active');
+}
+
+const gsmMap = {
+  'single-jersey': ['160', '180', '210', '240', '280'],
+  'loopknit-unraised': ['240', '260'],
+  'loopknit-raised': ['300', '330'],
+  'airtex': ['220', '240', '280'],
+  'pique-polycotton': ['260'],
+  'lycra-jersey': ['180'],
+  'interlock': ['330'],
+  'other': []
+};
+
+function updateGSMOptions() {
+  const fabricType = document.getElementById('f_fabric').value;
+  const gsmDropdown = document.getElementById('f_gsm');
+  const relevantGSMs = gsmMap[fabricType] || [];
+  
+  gsmDropdown.innerHTML = '<option value="">Select GSM...</option>';
+  
+  if (relevantGSMs.length > 0) {
+    relevantGSMs.forEach(gsm => {
+      const option = document.createElement('option');
+      option.value = gsm;
+      option.textContent = gsm + ' GSM';
+      gsmDropdown.appendChild(option);
+    });
+  } else {
+    const option = document.createElement('option');
+    option.value = 'custom';
+    option.textContent = 'Custom / Multiple';
+    gsmDropdown.appendChild(option);
+  }
+  
+  gsmDropdown.value = '';
+}
+
+function updateFabricColors() {
+  const fabricType = document.getElementById('f_fabric').value;
+  const colorSelector = document.getElementById('colorSelector');
+  
+  if (!fabricType) {
+    colorSelector.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);font-size:12px;text-align:center;padding:20px">Select a fabric type first</p>';
+    return;
+  }
+  
+  let selectedFabric = null;
+  
+  // Get the fabric object based on selected type and GSM
+  if (fabricType === 'single-jersey') {
+    selectedFabric = fabrics.find(f => f.id === 'jersey');
+  } else if (fabricType === 'loopknit-unraised') {
+    selectedFabric = fabrics.find(f => f.id === 'loopknit-unraised');
+  } else if (fabricType === 'loopknit-raised') {
+    selectedFabric = fabrics.find(f => f.id === 'loopknit-unraised');
+  } else if (fabricType === 'airtex') {
+    const gsm = document.getElementById('f_gsm').value;
+    if (gsm.includes('220')) selectedFabric = fabrics.find(f => f.id === 'airtex-220');
+    else if (gsm.includes('240')) selectedFabric = fabrics.find(f => f.id === 'airtex-240');
+    else if (gsm.includes('280')) selectedFabric = fabrics.find(f => f.id === 'airtex-280');
+    if (!selectedFabric) selectedFabric = fabrics.find(f => f.id === 'airtex-220');
+  } else if (fabricType === 'interlock' || fabricType === 'lycra-jersey') {
+    selectedFabric = fabrics.find(f => f.id === fabricType === 'interlock' ? 'interlock' : 'lycra');
+  }
+  
+  if (!selectedFabric) {
+    colorSelector.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);font-size:12px;text-align:center;padding:20px">No colours available</p>';
+    return;
+  }
+  
+  const colors = selectedFabric.colors;
+  const colorHexes = selectedFabric.colorHex;
+  
+  if (!colors || colors.length === 0) {
+    colorSelector.innerHTML = '<p style="grid-column:1/-1;color:var(--muted);font-size:12px;text-align:center;padding:20px">No colours available for this selection</p>';
+    return;
+  }
+  
+  colorSelector.innerHTML = colors.map((c, i) => {
+    const colorLabel = typeof c === 'object' ? `${c.no}<br>${c.name}` : c;
+    const title = typeof c === 'object' ? `${c.no} - ${c.name}` : c;
+    return `
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;padding:8px;border-radius:var(--r);transition:all .2s;" onclick="this.classList.toggle('selected')" title="${title}">
+        <div style="width:36px;height:36px;border-radius:50%;background:${colorHexes[i]};border:2px solid var(--border);box-shadow:0 2px 6px rgba(0,0,0,.1);"></div>
+        <span style="font-size:10px;font-weight:600;text-align:center;line-height:1.2;color:var(--dark)">${colorLabel}</span>
+      </div>
+    `;
+  }).join('');
 }
 
 function sendToWhatsApp(msg) {
